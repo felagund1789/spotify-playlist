@@ -11,6 +11,15 @@ export interface Song {
   album: string;
   imageUrl?: string;
   color: string;
+  duration: string;
+}
+
+const millisToMinutes = (millis: number | undefined | null) => {
+  if (!millis) return "--:--";
+
+  const minutes = Math.floor(millis / 60000);
+  const seconds = Math.round(millis / 1000) - minutes * 60;
+  return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
 }
 
 const tracks: Song[] = songs.map((s) => ({
@@ -19,7 +28,8 @@ const tracks: Song[] = songs.map((s) => ({
   artist: s.item.data.artists.items[0].profile.name,
   album: s.item.data.albumOfTrack.name,
   imageUrl: s.item.data.albumOfTrack.coverArt.sources.find((i) => i.width > 256)?.url,
-  color: s.item.data.albumOfTrack.coverArt.extractedColors.colorDark.hex
+  color: s.item.data.albumOfTrack.coverArt.extractedColors.colorDark.hex,
+  duration: millisToMinutes(s.item.data.duration.totalMilliseconds),
 }));
 
 function App() {
