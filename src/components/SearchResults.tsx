@@ -9,7 +9,7 @@ interface Props {
 const SearchResults = ( { results }: Props ) => {
   return (
     <List>
-      {results.map((song) => <ListItem>
+      {results.map((song) => <ListItem key={song.id}>
         <Track song={song} />
       </ListItem>) }
     </List>
