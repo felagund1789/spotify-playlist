@@ -1,6 +1,13 @@
-import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
-import { useRef } from "react";
-import { BsSearch } from "react-icons/bs";
+import {
+  Button,
+  HStack,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+} from "@chakra-ui/react";
+import { useRef, useState } from "react";
+import { BsSearch, BsX } from "react-icons/bs";
 
 interface Props {
   onSearch: (searchText: string) => void;
@@ -8,6 +15,13 @@ interface Props {
 
 const SearchInput = ({ onSearch }: Props) => {
   const ref = useRef<HTMLInputElement>(null);
+  const [searchText, setSearchText] = useState("");
+
+  const clearSearchText = () => {
+    setSearchText("");
+    onSearch("");
+    ref.current?.focus();
+  };
 
   return (
     <form
@@ -16,15 +30,26 @@ const SearchInput = ({ onSearch }: Props) => {
         if (ref.current) onSearch(ref.current.value);
       }}
     >
-      <InputGroup>
-        <InputLeftElement children={<BsSearch />} />
-        <Input
-          ref={ref}
-          borderRadius={20}
-          placeholder="Search songs..."
-          variant="filled"
-        />
-      </InputGroup>
+      <HStack>
+        <InputGroup>
+          <InputLeftElement children={<BsSearch />} />
+          <Input
+            ref={ref}
+            borderRadius={20}
+            placeholder="Search songs..."
+            variant="filled"
+            value={searchText}
+            onChange={(input) => setSearchText(input.target.value)}
+          />
+          <InputRightElement
+            children={searchText && <BsX />}
+            onClick={clearSearchText}
+          />
+        </InputGroup>
+        <Button colorScheme="green" bgColor="limegreen" type="submit">
+          Search
+        </Button>
+      </HStack>
     </form>
   );
 };
