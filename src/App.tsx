@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import SearchResults from "./components/SearchResults";
 import SearchInput from "./components/SearchInput";
-import useSearchTracks from "./hooks/useSearchTracks";
+import useTracks from "./hooks/useTracks";
 import "./App.css";
 
 function App() {
   const [search, setSearch] = useState("");
-  const { data } = useSearchTracks(search);
+  const { tracks } = useTracks(search);
 
   return (
     <Grid
@@ -20,7 +20,7 @@ function App() {
         <SearchInput onSearch={(search) => setSearch(search)} />
       </GridItem>
       <GridItem padding={10} area="results">
-        <SearchResults results={data} />
+        <SearchResults results={tracks} />
       </GridItem>
       <GridItem padding={10} area="playlist">
         <div />
