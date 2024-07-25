@@ -2,7 +2,8 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import "./App.css";
 import SearchResults from "./components/SearchResults";
 import SearchInput from "./components/SearchInput";
-import songs from "./data/songs";
+import useSearchTracks from "./hooks/useSearchTracks";
+import { useState } from "react";
 
 export interface Song {
   id: string;
@@ -10,7 +11,6 @@ export interface Song {
   artist: string;
   album: string;
   imageUrl?: string;
-  color: string;
   duration: string;
 }
 
@@ -19,20 +19,21 @@ const millisToMinutes = (millis: number | undefined | null) => {
 
   const minutes = Math.floor(millis / 60000);
   const seconds = Math.round(millis / 1000) - minutes * 60;
-  return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
-}
-
-const tracks: Song[] = songs.map((s) => ({
-  id: s.item.data.id,
-  name: s.item.data.name,
-  artist: s.item.data.artists.items[0].profile.name,
-  album: s.item.data.albumOfTrack.name,
-  imageUrl: s.item.data.albumOfTrack.coverArt.sources.find((i) => i.width > 256)?.url,
-  color: s.item.data.albumOfTrack.coverArt.extractedColors.colorDark.hex,
-  duration: millisToMinutes(s.item.data.duration.totalMilliseconds),
-}));
+  return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+};
 
 function App() {
+  const [search, setSearch] = useState("");
+  const { data } = useSearchTracks(search);
+  const tracks: Song[] = data.map((track) => ({
+    id: track.id,
+    name: track.name,
+    artist: track.artists[0].name,
+    album: track.album.name,
+    imageUrl: track.album.images.find((i) => i.width > 256)?.url,
+    duration: millisToMinutes(track.duration_ms),
+  }));
+
   return (
     <Grid
       templateAreas={{
@@ -41,7 +42,7 @@ function App() {
       }}
     >
       <GridItem padding={10} area="search">
-        <SearchInput onSearch={(search) => console.log(search)} />
+        <SearchInput onSearch={(search) => setSearch(search)} />
       </GridItem>
       <GridItem padding={10} area="results">
         <SearchResults results={tracks} />
