@@ -1,16 +1,16 @@
 import { List, ListItem } from "@chakra-ui/react";
+import { Track as TrackModel } from "../types";
 import Track from "./Track";
-import { Song } from "../App";
 
 interface Props {
-  results: Song[]
+  results: TrackModel[]
 }
 
 const SearchResults = ( { results }: Props ) => {
   return (
     <List>
-      {results.map((song) => <ListItem key={song.id}>
-        <Track song={song} />
+      {results.map((track) => <ListItem key={track.id}>
+        <Track track={track} />
       </ListItem>) }
     </List>
   );
