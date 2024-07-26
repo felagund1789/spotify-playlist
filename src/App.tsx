@@ -19,10 +19,21 @@ function App() {
       </Box>
       <SimpleGrid padding={10} columns={{ base: 1, lg: 2 }} spacing={10}>
         <Box>
-          <SearchResults onSelectTrack={(track) => setSelectedTracks([...selectedTracks, track])} results={tracks} />
+          <SearchResults
+            onAddTrack={(track) =>
+              setSelectedTracks([...selectedTracks, track])
+            }
+            onRemoveTrack={() => {}}
+            results={tracks}
+          />
         </Box>
         <Box>
-          <Playlist selectedTracks={selectedTracks}/>
+          <Playlist
+            selectedTracks={selectedTracks}
+            onRemoveSelected={(track) =>
+              setSelectedTracks(selectedTracks.filter((t) => t.id !== track.id))
+            }
+          />
         </Box>
       </SimpleGrid>
     </>

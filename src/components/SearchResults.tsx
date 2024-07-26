@@ -4,17 +4,18 @@ import Track from "./Track";
 
 interface Props {
   results: TrackModel[];
-  onSelectTrack: (track: TrackModel) => void;
+  onAddTrack: (track: TrackModel) => void;
+  onRemoveTrack: (track: TrackModel) => void;
 }
 
-const SearchResults = ({ results, onSelectTrack }: Props) => {
+const SearchResults = ({ results, onAddTrack, onRemoveTrack }: Props) => {
   return (
     <>
       <Heading>Results</Heading>
       <List>
         {results.map((track) => (
           <ListItem key={track.id}>
-            <Track selected={false} onAdd={onSelectTrack} onRemove={() => {}} track={track} />
+            <Track selected={false} onAdd={onAddTrack} onRemove={onRemoveTrack} track={track} />
           </ListItem>
         ))}
       </List>

@@ -4,9 +4,10 @@ import Track from "./Track";
 
 interface Props {
   selectedTracks: TrackModel[];
+  onRemoveSelected: (track: TrackModel) => void;
 }
 
-const Playlist = ({ selectedTracks }: Props) => {
+const Playlist = ({ selectedTracks, onRemoveSelected }: Props) => {
   return (
     <>
       <Heading>Playlist</Heading>
@@ -17,9 +18,7 @@ const Playlist = ({ selectedTracks }: Props) => {
               selected={true}
               track={track}
               onAdd={() => {}}
-              onRemove={(track) => {
-                console.log(`Remove track: ${track.name}`);
-              }}
+              onRemove={onRemoveSelected}
             />
           </ListItem>
         ))}
