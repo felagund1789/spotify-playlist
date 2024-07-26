@@ -23,8 +23,11 @@ function App() {
             onAddTrack={(track) =>
               setSelectedTracks([...selectedTracks, track])
             }
-            onRemoveTrack={() => {}}
+            onRemoveTrack={(track) =>
+              setSelectedTracks(selectedTracks.filter((t) => t.id !== track.id))
+            }
             results={tracks}
+            selectedTracks={selectedTracks}
           />
         </Box>
         <Box>

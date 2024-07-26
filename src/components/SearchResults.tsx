@@ -4,18 +4,29 @@ import Track from "./Track";
 
 interface Props {
   results: TrackModel[];
+  selectedTracks: TrackModel[];
   onAddTrack: (track: TrackModel) => void;
   onRemoveTrack: (track: TrackModel) => void;
 }
 
-const SearchResults = ({ results, onAddTrack, onRemoveTrack }: Props) => {
+const SearchResults = ({
+  results,
+  selectedTracks,
+  onAddTrack,
+  onRemoveTrack,
+}: Props) => {
   return (
     <>
       <Heading>Results</Heading>
       <List>
         {results.map((track) => (
           <ListItem key={track.id}>
-            <Track selected={false} onAdd={onAddTrack} onRemove={onRemoveTrack} track={track} />
+            <Track
+              selected={selectedTracks.findIndex((t) => t.id === track.id) > -1}
+              onAdd={onAddTrack}
+              onRemove={onRemoveTrack}
+              track={track}
+            />
           </ListItem>
         ))}
       </List>
