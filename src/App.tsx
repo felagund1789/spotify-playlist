@@ -5,9 +5,11 @@ import SearchInput from "./components/SearchInput";
 import Playlist from "./components/Playlist";
 import useTracks from "./hooks/useTracks";
 import "./App.css";
+import { Track } from "./types";
 
 function App() {
   const [search, setSearch] = useState("");
+  const [selectedTracks, setSelectedTracks] = useState<Track[]>([]);
   const { tracks } = useTracks(search);
 
   return (
@@ -17,10 +19,10 @@ function App() {
       </Box>
       <SimpleGrid padding={10} columns={{ base: 1, lg: 2 }} spacing={10}>
         <Box>
-          <SearchResults results={tracks} />
+          <SearchResults onSelectTrack={(track) => setSelectedTracks([...selectedTracks, track])} results={tracks} />
         </Box>
         <Box>
-          <Playlist />
+          <Playlist selectedTracks={selectedTracks}/>
         </Box>
       </SimpleGrid>
     </>

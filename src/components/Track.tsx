@@ -8,10 +8,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Track as TrackModel } from "../types";
-import { useState } from "react";
 
 interface Props {
   track: TrackModel;
+  selected: boolean;
+  onAdd: (track: TrackModel) => void;
+  onRemove: (track: TrackModel) => void;
 }
 
 const millisToMinutes = (millis: number | undefined | null) => {
@@ -22,9 +24,7 @@ const millisToMinutes = (millis: number | undefined | null) => {
   return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
 };
 
-const Track = ({ track }: Props) => {
-  const [selected, setSelected] = useState(false);
-
+const Track = ({ track, selected, onAdd, onRemove }: Props) => {
   const title = track.name;
   const imageUrl = track.album.images.find((i) => i.height > 256)?.url || "";
   const artist = track.artists[0].name;
@@ -50,7 +50,7 @@ const Track = ({ track }: Props) => {
           backgroundColor={selected ? "gray" : "limegreen"}
           marginRight={5}
           marginTop={10}
-          onClick={() => setSelected(!selected)}
+          onClick={() => (selected ? onRemove(track) : onAdd(track))}
         >
           {selected ? "Remove" : "Add"}
         </Button>
