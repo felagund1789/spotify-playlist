@@ -46,7 +46,13 @@ const SearchInput = ({ onSearch }: Props) => {
             onClick={clearSearchText}
           />
         </InputGroup>
-        <Button colorScheme="green" bgColor="limegreen" type="submit">
+        <Button
+          backgroundColor="limegreen"
+          borderRadius={20}
+          colorScheme="green"
+          type="submit"
+          width={120}
+        >
           Search
         </Button>
       </HStack>

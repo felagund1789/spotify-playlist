@@ -46,10 +46,12 @@ const Track = ({ track, selected, onAdd, onRemove }: Props) => {
           </HStack>
         </CardBody>
         <Button
-          colorScheme={selected ? "default" : "green"}
           backgroundColor={selected ? "gray" : "limegreen"}
+          borderRadius={20}
+          colorScheme={selected ? "default" : "green"}
           marginRight={5}
           marginTop={10}
+          width={90}
           onClick={() => (selected ? onRemove(track) : onAdd(track))}
         >
           {selected ? "Remove" : "Add"}
