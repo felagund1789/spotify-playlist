@@ -26,7 +26,7 @@ function App() {
             onRemoveTrack={(track) =>
               setSelectedTracks(selectedTracks.filter((t) => t.id !== track.id))
             }
-            results={tracks}
+            results={search && tracks || []}
             selectedTracks={selectedTracks}
           />
         </Box>

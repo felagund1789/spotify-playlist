@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
-import { SearchResponse, Track } from "../types";
+import { Track } from "../types";
+import SpotifyService from "../services/SpotifyService";
 
 const useTracks = (searchTerm: string) => {
   const [tracks, setTracks] = useState<Track[]>([]);
@@ -9,28 +9,21 @@ const useTracks = (searchTerm: string) => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    const controller = new AbortController();
+    const { request, cancel } = SpotifyService.searchTracks(searchTerm);
 
-    if (searchTerm) {
-      setLoading(true);
-      apiClient
-        .get<SearchResponse>(`/search?q=${searchTerm}&type=track`, {
-          signal: controller.signal,
-        })
-        .then((res) => {
-          setTracks(res.data.tracks?.items || []);
-          setLoading(false);
-        })
-        .catch((err) => {
-          if (err instanceof CanceledError) return;
-          setError(err.message);
-          setLoading(false);
-        });
-    } else {
-      setTracks([]);
-    }
+    setLoading(true);
+    request
+      .then((res) => {
+        setTracks(res.data.tracks?.items || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        if (err instanceof CanceledError) return;
+        setError(err.message);
+        setLoading(false);
+      });
 
-    return () => controller.abort();
+    return () => cancel();
   }, [searchTerm]);
 
   return { tracks, error, isLoading };
