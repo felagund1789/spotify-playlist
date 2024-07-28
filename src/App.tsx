@@ -3,7 +3,6 @@ import { Box, SimpleGrid } from "@chakra-ui/react";
 import SearchResults from "./components/SearchResults";
 import SearchInput from "./components/SearchInput";
 import Playlist from "./components/Playlist";
-import useTracks from "./hooks/useTracks";
 import "./App.css";
 import { Track } from "./types";
 import NavBar from "./components/NavBar";
@@ -18,7 +17,6 @@ interface User {
 function App() {
   const [search, setSearch] = useState("");
   const [selectedTracks, setSelectedTracks] = useState<Track[]>([]);
-  const { tracks } = useTracks(search);
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -53,7 +51,7 @@ function App() {
             onRemoveTrack={(track) =>
               setSelectedTracks(selectedTracks.filter((t) => t.id !== track.id))
             }
-            results={(search && tracks) || []}
+            searchTerm={search}
             selectedTracks={selectedTracks}
           />
         </Box>
