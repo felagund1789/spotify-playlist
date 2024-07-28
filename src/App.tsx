@@ -26,11 +26,12 @@ function App() {
 
     request
       .then((res) => {
+        localStorage.setItem("user_id", res.data.id);
         setUser({
           id: res.data.id,
           name: res.data.display_name,
           imageUrl: res.data.images[0].url,
-        })
+        });
       })
       .catch(() => {});
 
@@ -52,7 +53,7 @@ function App() {
             onRemoveTrack={(track) =>
               setSelectedTracks(selectedTracks.filter((t) => t.id !== track.id))
             }
-            results={search && tracks || []}
+            results={(search && tracks) || []}
             selectedTracks={selectedTracks}
           />
         </Box>
