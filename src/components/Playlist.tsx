@@ -42,14 +42,17 @@ const Playlist = ({ selectedTracks, onRemoveAll, onRemoveSelected }: Props) => {
     setTimeout(() => setSuccessMessage(""), 5000);
   };
 
-  const handleError = (err: AxiosError) => {
+  const handleError = (errorMessage: string) => {
     setLoading(false);
-    setError(err.message);
+    setError(errorMessage);
     setTimeout(() => setError(""), 5000);
   };
 
   const savePlaylist = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!playlistName) handleError("You have not entered a title for the playlist.");
+    if (selectedTracks.length === 0) handleError("You have not selected any songs.");
+
     if (playlistName && selectedTracks.length > 0) {
       setLoading(true);
       SpotifyService.createPlaylist(userId, playlistName)
@@ -60,9 +63,9 @@ const Playlist = ({ selectedTracks, onRemoveAll, onRemoveSelected }: Props) => {
             selectedTracks.map((track) => `spotify:track:${track.id}`)
           )
             .then(handleSuccess)
-            .catch(handleError);
+            .catch((err) => handleError((err as AxiosError).message));
         })
-        .catch(handleError);
+        .catch((err) => handleError((err as AxiosError).message));
     }
   };
 
