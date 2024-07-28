@@ -11,17 +11,21 @@ const useTracks = (searchTerm: string) => {
   useEffect(() => {
     const { request, cancel } = SpotifyService.searchTracks(searchTerm);
 
-    setLoading(true);
-    request
-      .then((res) => {
-        setTracks(res.data.tracks?.items || []);
-        setLoading(false);
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        setLoading(false);
-      });
+    if (searchTerm) {
+      setLoading(true);
+      request
+        .then((res) => {
+          setTracks(res.data.tracks?.items || []);
+          setLoading(false);
+        })
+        .catch((err) => {
+          if (err instanceof CanceledError) return;
+          setError(err.message);
+          setLoading(false);
+        });
+    } else {
+      setTracks([]);
+    }
 
     return () => cancel();
   }, [searchTerm]);
