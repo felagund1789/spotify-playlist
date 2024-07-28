@@ -1,7 +1,8 @@
-import { Heading, List, ListItem } from "@chakra-ui/react";
+import { Heading, List, ListItem, Spinner } from "@chakra-ui/react";
 import { Track as TrackModel } from "../types";
 import Track from "./Track";
 import useTracks from "../hooks/useTracks";
+import ErrorMessage from "./ErrorMessage";
 
 interface Props {
   searchTerm: string;
@@ -16,10 +17,12 @@ const SearchResults = ({
   onAddTrack,
   onRemoveTrack,
 }: Props) => {
-  const { tracks } = useTracks(searchTerm);
+  const { tracks, isLoading, error } = useTracks(searchTerm);
   return (
     <>
       <Heading>Results</Heading>
+      {isLoading && <Spinner />}
+      {error && <ErrorMessage error={error} />}
       <List>
         {tracks.map((track) => (
           <ListItem key={track.id}>

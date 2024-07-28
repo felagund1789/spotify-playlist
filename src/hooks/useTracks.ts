@@ -15,6 +15,7 @@ const useTracks = (searchTerm: string) => {
       setLoading(true);
       request
         .then((res) => {
+          setError("");
           setTracks(res.data.tracks?.items || []);
           setLoading(false);
         })
@@ -22,6 +23,7 @@ const useTracks = (searchTerm: string) => {
           if (err instanceof CanceledError) return;
           setError(err.message);
           setLoading(false);
+          setTracks([]);
         });
     } else {
       setTracks([]);
