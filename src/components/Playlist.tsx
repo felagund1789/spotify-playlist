@@ -6,12 +6,15 @@ import {
   InputRightElement,
   List,
   ListItem,
+  Spinner,
 } from "@chakra-ui/react";
 import { Track as TrackModel } from "../types";
 import Track from "./Track";
 import { FormEvent, useRef, useState } from "react";
 import SpotifyService from "../services/SpotifyService";
 import { BsX } from "react-icons/bs";
+import ErrorMessage from "./ErrorMessage";
+import { AxiosError } from "axios";
 
 interface Props {
   selectedTracks: TrackModel[];
@@ -20,22 +23,39 @@ interface Props {
 }
 
 const Playlist = ({ selectedTracks, onRemoveAll, onRemoveSelected }: Props) => {
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [playlistName, setPlaylistName] = useState("");
   const ref = useRef<HTMLInputElement>(null);
   const userId = localStorage.getItem("user_id") || "";
-  const [playlistName, setPlaylistName] = useState("");
 
   const savePlaylist = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (playlistName && selectedTracks.length > 0) {
+      setLoading(true);
       SpotifyService.createPlaylist(userId, playlistName)
         .then((res) => {
           const playlistId = res.data.id;
           SpotifyService.addItemsToPlaylist(
             playlistId,
             selectedTracks.map((track) => `spotify:track:${track.id}`)
-          );
+          )
+            .then(() => {
+              setLoading(false);
+              setError("");
+            })
+            .catch((e) => {
+              setError((e as AxiosError).message);
+              setTimeout(() => setError(""), 5000);
+              setLoading(false);
+            });
+        })
+        .catch((err) => {
+          setError((err as AxiosError).message);
+          setTimeout(() => setError(""), 5000);
+          setLoading(false);
         });
-      }
+    }
   };
 
   return (
@@ -70,6 +90,8 @@ const Playlist = ({ selectedTracks, onRemoveAll, onRemoveSelected }: Props) => {
           Remove all
         </Button>
       </HStack>
+      {isLoading && <Spinner />}
+      {error && <ErrorMessage error={error} />}
       <List>
         {selectedTracks.map((track) => (
           <ListItem key={track.id}>
