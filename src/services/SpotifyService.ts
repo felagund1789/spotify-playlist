@@ -1,26 +1,39 @@
 import apiClient from "../services/api-client";
-import { ProfileResponse, SearchResponse } from "../types";
+import { Playlist, ProfileResponse, SearchResponse } from "../types";
 
 class SpotifyService {
-
   searchTracks(searchTerm: string) {
     const controller = new AbortController();
-    const request = apiClient
-      .get<SearchResponse>(`/search?q=${searchTerm}&type=track`, {
+    const request = apiClient.get<SearchResponse>(
+      `/search?q=${searchTerm}&type=track`,
+      {
         signal: controller.signal,
-      })
+      }
+    );
 
-    return {request, cancel: () => controller.abort()};
+    return { request, cancel: () => controller.abort() };
   }
 
   getUserProfile() {
     const controller = new AbortController();
-    const request = apiClient
-      .get<ProfileResponse>("/me", {
-        signal: controller.signal,
-      })
+    const request = apiClient.get<ProfileResponse>("/me", {
+      signal: controller.signal,
+    });
 
-    return {request, cancel: () => controller.abort()};
+    return { request, cancel: () => controller.abort() };
+  }
+
+  createPlaylist(userId: string, playlistName: string) {
+    return apiClient.post<Playlist>(`users/${userId}/playlists`, {
+      name: playlistName,
+    });
+  }
+
+  addItemsToPlaylist(playlistId: string, itemIds: string[]) {
+    return apiClient.post(`playlists/${playlistId}/tracks`, {
+      playlist_id: playlistId,
+      uris: itemIds,
+    });
   }
 }
 
