@@ -1,8 +1,17 @@
-import { Button, HStack, Input, List, ListItem } from "@chakra-ui/react";
+import {
+  Button,
+  HStack,
+  Input,
+  InputGroup,
+  InputRightElement,
+  List,
+  ListItem,
+} from "@chakra-ui/react";
 import { Track as TrackModel } from "../types";
 import Track from "./Track";
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import SpotifyService from "../services/SpotifyService";
+import { BsX } from "react-icons/bs";
 
 interface Props {
   selectedTracks: TrackModel[];
@@ -11,6 +20,7 @@ interface Props {
 }
 
 const Playlist = ({ selectedTracks, onRemoveAll, onRemoveSelected }: Props) => {
+  const ref = useRef<HTMLInputElement>(null);
   const userId = localStorage.getItem("user_id") || "";
   const [playlistName, setPlaylistName] = useState("");
 
@@ -31,12 +41,22 @@ const Playlist = ({ selectedTracks, onRemoveAll, onRemoveSelected }: Props) => {
   return (
     <form onSubmit={savePlaylist}>
       <HStack padding={4}>
-        <Input
-          variant="flushed"
-          placeholder="Enter a title for your playlist"
-          value={playlistName}
-          onChange={(event) => setPlaylistName(event.target.value)}
-        />
+        <InputGroup>
+          <Input
+            ref={ref}
+            variant="flushed"
+            placeholder="Enter a title for your playlist"
+            value={playlistName}
+            onChange={(event) => setPlaylistName(event.target.value)}
+          />
+          <InputRightElement
+            children={playlistName && <BsX />}
+            onClick={() => {
+              setPlaylistName("");
+              ref.current?.focus();
+            }}
+          />
+        </InputGroup>
         <Button
           type="submit"
           borderRadius={20}
@@ -46,11 +66,7 @@ const Playlist = ({ selectedTracks, onRemoveAll, onRemoveSelected }: Props) => {
         >
           Save
         </Button>
-        <Button
-          borderRadius={20}
-          onClick={onRemoveAll}
-          width={130}
-        >
+        <Button borderRadius={20} onClick={onRemoveAll} width={130}>
           Remove all
         </Button>
       </HStack>
