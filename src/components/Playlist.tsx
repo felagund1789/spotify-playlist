@@ -1,5 +1,7 @@
 import {
   Button,
+  Card,
+  CardBody,
   HStack,
   Input,
   InputGroup,
@@ -7,6 +9,7 @@ import {
   List,
   ListItem,
   Spinner,
+  Text,
 } from "@chakra-ui/react";
 import { Track as TrackModel } from "../types";
 import Track from "./Track";
@@ -25,9 +28,25 @@ interface Props {
 const Playlist = ({ selectedTracks, onRemoveAll, onRemoveSelected }: Props) => {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const [playlistName, setPlaylistName] = useState("");
   const ref = useRef<HTMLInputElement>(null);
   const userId = localStorage.getItem("user_id") || "";
+
+  const handleSuccess = () => {
+    setLoading(false);
+    setError("");
+    setPlaylistName("");
+    onRemoveAll();
+    setSuccessMessage("Your playlist is ready!");
+    setTimeout(() => setSuccessMessage(""), 5000);
+  };
+
+  const handleError = (err: AxiosError) => {
+    setLoading(false);
+    setError(err.message);
+    setTimeout(() => setError(""), 5000);
+  };
 
   const savePlaylist = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -40,21 +59,10 @@ const Playlist = ({ selectedTracks, onRemoveAll, onRemoveSelected }: Props) => {
             playlistId,
             selectedTracks.map((track) => `spotify:track:${track.id}`)
           )
-            .then(() => {
-              setLoading(false);
-              setError("");
-            })
-            .catch((e) => {
-              setError((e as AxiosError).message);
-              setTimeout(() => setError(""), 5000);
-              setLoading(false);
-            });
+            .then(handleSuccess)
+            .catch(handleError);
         })
-        .catch((err) => {
-          setError((err as AxiosError).message);
-          setTimeout(() => setError(""), 5000);
-          setLoading(false);
-        });
+        .catch(handleError);
     }
   };
 
@@ -92,6 +100,13 @@ const Playlist = ({ selectedTracks, onRemoveAll, onRemoveSelected }: Props) => {
       </HStack>
       {isLoading && <Spinner />}
       {error && <ErrorMessage error={error} />}
+      {successMessage && (
+        <Card bgColor="green">
+          <CardBody>
+            <Text color="white">{successMessage}</Text>
+          </CardBody>
+        </Card>
+      )}
       <List>
         {selectedTracks.map((track) => (
           <ListItem key={track.id}>
