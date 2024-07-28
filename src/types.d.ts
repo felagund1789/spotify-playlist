@@ -198,3 +198,21 @@ export interface SearchResponse {
   episodes?: SpotifyResponse<Episode>;
   audiobooks?: SpotifyResponse<AudioBook>;
 }
+
+export interface ProfileResponse {
+  "country": string;
+  "display_name": string;
+  "email": string;
+  "explicit_content": {
+    "filter_enabled": boolean;
+    "filter_locked": boolean;
+  },
+  "external_urls": ExternalUrls,
+  "followers": Total,
+  "href": string;
+  "id": string;
+  "images": Image[],
+  "product": string;
+  "type": string;
+  "uri": string;
+}
