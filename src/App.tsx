@@ -60,6 +60,7 @@ function App() {
         <Box>
           <Playlist
             selectedTracks={selectedTracks}
+            onRemoveAll={() => setSelectedTracks([])}
             onRemoveSelected={(track) =>
               setSelectedTracks(selectedTracks.filter((t) => t.id !== track.id))
             }

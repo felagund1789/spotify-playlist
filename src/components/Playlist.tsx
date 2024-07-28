@@ -6,10 +6,11 @@ import SpotifyService from "../services/SpotifyService";
 
 interface Props {
   selectedTracks: TrackModel[];
+  onRemoveAll: () => void;
   onRemoveSelected: (track: TrackModel) => void;
 }
 
-const Playlist = ({ selectedTracks, onRemoveSelected }: Props) => {
+const Playlist = ({ selectedTracks, onRemoveAll, onRemoveSelected }: Props) => {
   const userId = localStorage.getItem("user_id") || "";
   const [playlistName, setPlaylistName] = useState("");
 
@@ -44,6 +45,13 @@ const Playlist = ({ selectedTracks, onRemoveSelected }: Props) => {
           width={120}
         >
           Save
+        </Button>
+        <Button
+          borderRadius={20}
+          onClick={onRemoveAll}
+          width={130}
+        >
+          Remove all
         </Button>
       </HStack>
       <List>
