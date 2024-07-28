@@ -36,7 +36,7 @@ const SearchInput = ({ onSearch }: Props) => {
           <Input
             ref={ref}
             borderRadius={20}
-            placeholder="Search songs..."
+            placeholder="Search for a song"
             variant="filled"
             value={searchText}
             onChange={(input) => setSearchText(input.target.value)}

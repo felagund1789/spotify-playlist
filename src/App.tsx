@@ -43,27 +43,31 @@ function App() {
         <SearchInput onSearch={(search) => setSearch(search)} />
       </Box>
       <SimpleGrid padding={10} columns={{ base: 1, lg: 2 }} spacing={10}>
-        <Box>
-          <SearchResults
-            onAddTrack={(track) =>
-              setSelectedTracks([...selectedTracks, track])
-            }
-            onRemoveTrack={(track) =>
-              setSelectedTracks(selectedTracks.filter((t) => t.id !== track.id))
-            }
-            searchTerm={search}
-            selectedTracks={selectedTracks}
-          />
-        </Box>
-        <Box>
-          <Playlist
-            selectedTracks={selectedTracks}
-            onRemoveAll={() => setSelectedTracks([])}
-            onRemoveSelected={(track) =>
-              setSelectedTracks(selectedTracks.filter((t) => t.id !== track.id))
-            }
-          />
-        </Box>
+        {(search || selectedTracks.length > 0) && (
+          <Box>
+            <SearchResults
+              onAddTrack={(track) =>
+                setSelectedTracks([...selectedTracks, track])
+              }
+              onRemoveTrack={(track) =>
+                setSelectedTracks(selectedTracks.filter((t) => t.id !== track.id))
+              }
+              searchTerm={search}
+              selectedTracks={selectedTracks}
+            />
+          </Box>
+        )}
+        {(search || selectedTracks.length > 0) && (
+          <Box>
+            <Playlist
+              selectedTracks={selectedTracks}
+              onRemoveAll={() => setSelectedTracks([])}
+              onRemoveSelected={(track) =>
+                setSelectedTracks(selectedTracks.filter((t) => t.id !== track.id))
+              }
+            />
+          </Box>
+        )}
       </SimpleGrid>
     </>
   );
