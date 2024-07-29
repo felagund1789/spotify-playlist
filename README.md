@@ -9,7 +9,7 @@ Spotify Playlist Creator is a web application that allows users to create Spotif
 ## Features
 
 - **Create Playlists:** Easily create new playlists and add your favorite songs.
-- **Search Tracks:** Search for songs using the Spotify API and add them to your playlists.
+- **Search Tracks:** Search for songs using the Spotify API and add them to a playlist.
 - **Responsive Design:** Enjoy a responsive UI built with Chakra UI, ensuring a great experience on both desktop and mobile devices.
 
 ## Tech Stack
@@ -36,7 +36,7 @@ npm install
 ```
 
 3. **Create a Spotify app:**
-   Create a new app in your [Spotify developer account](https://developer.spotify.com/dashboard) and declare [http://localhost:5173](http://localhost:5173) as a callback URI.
+   Create a new app in your [Spotify developer account](https://developer.spotify.com/dashboard) and declare `http://localhost:5173` as a callback URI.
 
 4. **Set up environment variables:**
    Copy the `.env.example` file in the root directory to create a `.env` file and replace your Spotify API client ID:
@@ -84,10 +84,10 @@ Contributions are welcome! Please follow these steps:
 If you have any questions or feedback, please feel free to reach out:
 
 - **GitHub Issues:** [Create an issue](https://github.com/felagund1789/spotify-playlist/issues)
-- **Email:** [raistlindragonl@gmail.com](mailto: raistlindragonl@gmail.com)
+- **Email:** raistlindragonl@gmail.com
 
 ---
 
 Thank you for using Spotify Playlist Creator! Enjoy your music. 🎵
 
-![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white) ![Chakra UI](https://img.shields.io/badge/Chakra_UI-319795?logo=chakraui&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white) ![Chakra UI](https://img.shields.io/badge/Chakra_UI-319795?logo=chakraui&logoColor=white)
