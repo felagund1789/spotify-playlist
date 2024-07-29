@@ -35,18 +35,21 @@ cd spotify-playlist
 npm install
 ```
 
-3. **Set up environment variables:**
-   Create a `.env` file in the root directory and add your Spotify API credentials:
+3. **Create a Spotify app:**
+   Create a new app in your [Spotify developer account](https://developer.spotify.com/dashboard) and declare [http://localhost:5173](http://localhost:5173) as a callback URI.
+
+4. **Set up environment variables:**
+   Copy the `.env.example` file in the root directory to create a `.env` file and replace your Spotify API client ID:
 ```
-REACT_APP_SPOTIFY_CLIENT_ID=your_spotify_client_id
-REACT_APP_SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
+VITE_SPOTIFY_CLIENT_ID=your_client_id
+VITE_SPOTIFY_REDIRECT_URI=http://localhost:5173/
 ```
 
-4. **Start the development server:**
+5. **Start the development server:**
 ```
 npm run dev
 ```
-The app should now be running on [http://localhost:3000](http://localhost:3000).
+The app should now be running on [http://localhost:5173](http://localhost:5173).
 
 ## Usage
 
@@ -76,19 +79,15 @@ Contributions are welcome! Please follow these steps:
 4. Push to the branch: `git push origin feature-branch-name`
 5. Open a pull request.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Contact
 
 If you have any questions or feedback, please feel free to reach out:
 
 - **GitHub Issues:** [Create an issue](https://github.com/felagund1789/spotify-playlist/issues)
-- **Email:** [felagund1789@gmail.com](mailto:felagund1789@gmail.com)
+- **Email:** [raistlindragonl@gmail.com](mailto: raistlindragonl@gmail.com)
 
 ---
 
 Thank you for using Spotify Playlist Creator! Enjoy your music. 🎵
 
-![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white) ![Chakra UI](https://img.shields.io/badge/Chakra_UI-319795?logo=chakraui&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white) ![Chakra UI](https://img.shields.io/badge/Chakra_UI-319795?logo=chakraui&logoColor=white)
