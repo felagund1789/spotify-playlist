@@ -1,6 +1,6 @@
 # Spotify Playlist Creator
 
-![Spotify Logo](https://cdn.worldvectorlogo.com/logos/spotify-2.svg)
+![Spotify](https://img.shields.io/badge/Spotify-1DB954?logo=spotify&logoColor=white)
 
 ## Overview
 
@@ -91,6 +91,4 @@ If you have any questions or feedback, please feel free to reach out:
 
 Thank you for using Spotify Playlist Creator! Enjoy your music. 🎵
 
-![React Logo](https://cdn.worldvectorlogo.com/logos/react-2.svg)
-![TypeScript Logo](https://cdn.worldvectorlogo.com/logos/typescript.svg)
-![Chakra UI Logo](https://raw.githubusercontent.com/chakra-ui/chakra-ui/main/logo/logomark-colored.svg)
+![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white) ![Chakra UI](https://img.shields.io/badge/Chakra_UI-319795?logo=chakraui&logoColor=white)
