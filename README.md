@@ -39,7 +39,7 @@ npm install
    Create a new app in your [Spotify developer account](https://developer.spotify.com/dashboard) and declare `http://localhost:5173` as a callback URI.
 
 4. **Set up environment variables:**
-   Copy the `.env.example` file in the root directory to create a `.env` file and replace your Spotify API client ID:
+   Copy the `.env.example` file in the root directory, rename the copied file to `.env` and replace your Spotify API client ID:
 ```
 VITE_SPOTIFY_CLIENT_ID=your_client_id
 VITE_SPOTIFY_REDIRECT_URI=http://localhost:5173/
@@ -73,7 +73,7 @@ The app should now be running on [http://localhost:5173](http://localhost:5173).
 
 Contributions are welcome! Please follow these steps:
 
-1. Fork the repository.
+1. Clone the repository.
 2. Create a new branch: `git checkout -b feature-branch-name`
 3. Make your changes and commit them: `git commit -m 'Add some feature'`
 4. Push to the branch: `git push origin feature-branch-name`
