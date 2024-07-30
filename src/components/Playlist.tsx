@@ -8,6 +8,7 @@ import {
   InputRightElement,
   List,
   ListItem,
+  Show,
   Spinner,
   Text,
 } from "@chakra-ui/react";
@@ -69,6 +70,23 @@ const Playlist = ({ selectedTracks, onRemoveAll, onRemoveSelected }: Props) => {
     }
   };
 
+  const buttons = (
+    <>
+      <Button
+        type="submit"
+        borderRadius={20}
+        backgroundColor="limegreen"
+        colorScheme="green"
+        minWidth={120}
+      >
+        Save
+      </Button>
+      <Button borderRadius={20} onClick={onRemoveAll} minWidth={120}>
+        Remove all
+      </Button>
+    </>
+  );
+
   return (
     <form onSubmit={savePlaylist}>
       <HStack padding={4}>
@@ -88,19 +106,13 @@ const Playlist = ({ selectedTracks, onRemoveAll, onRemoveSelected }: Props) => {
             }}
           />
         </InputGroup>
-        <Button
-          type="submit"
-          borderRadius={20}
-          backgroundColor="limegreen"
-          colorScheme="green"
-          width={120}
-        >
-          Save
-        </Button>
-        <Button borderRadius={20} onClick={onRemoveAll} width={130}>
-          Remove all
-        </Button>
+        <Show above="md">
+          <HStack justifyContent="center">{buttons}</HStack>
+        </Show>
       </HStack>
+      <Show below="md">
+        <HStack justifyContent="center">{buttons}</HStack>
+      </Show>
       {isLoading && <Spinner />}
       {error && <ErrorMessage error={error} />}
       {successMessage && (

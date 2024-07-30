@@ -39,9 +39,7 @@ function App() {
   return (
     <>
       <NavBar name={user?.name} imgUrl={user?.imageUrl} />
-      <Box padding={"50px 20%"}>
-        <SearchInput onSearch={(search) => setSearch(search)} />
-      </Box>
+      <SearchInput onSearch={(search) => setSearch(search)} />
       <SimpleGrid padding={10} columns={{ base: 1, lg: 2 }} spacing={10}>
         {(search || selectedTracks.length > 0) && (
           <Box>

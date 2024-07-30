@@ -5,6 +5,8 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  Show,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { BsSearch, BsX } from "react-icons/bs";
@@ -16,12 +18,28 @@ interface Props {
 const SearchInput = ({ onSearch }: Props) => {
   const ref = useRef<HTMLInputElement>(null);
   const [searchText, setSearchText] = useState("");
+  const padding = useBreakpointValue({
+    base: "20px",
+    md: "50px 20%",
+  });
 
   const clearSearchText = () => {
     setSearchText("");
     onSearch("");
     ref.current?.focus();
   };
+
+  const searchButton = (
+    <Button
+      backgroundColor="limegreen"
+      borderRadius={20}
+      colorScheme="green"
+      type="submit"
+      width={120}
+    >
+      Search
+    </Button>
+  );
 
   return (
     <form
@@ -30,7 +48,7 @@ const SearchInput = ({ onSearch }: Props) => {
         if (ref.current) onSearch(ref.current.value);
       }}
     >
-      <HStack>
+      <HStack padding={padding}>
         <InputGroup>
           <InputLeftElement children={<BsSearch />} />
           <Input
@@ -46,16 +64,11 @@ const SearchInput = ({ onSearch }: Props) => {
             onClick={clearSearchText}
           />
         </InputGroup>
-        <Button
-          backgroundColor="limegreen"
-          borderRadius={20}
-          colorScheme="green"
-          type="submit"
-          width={120}
-        >
-          Search
-        </Button>
+        <Show above="md">{searchButton}</Show>
       </HStack>
+      <Show below="md">
+        <HStack justifyContent="center">{searchButton}</HStack>
+      </Show>
     </form>
   );
 };
