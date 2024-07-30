@@ -5,7 +5,9 @@ import {
   Heading,
   HStack,
   Image,
+  Show,
   Text,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { Track as TrackModel } from "../types";
 
@@ -30,9 +32,24 @@ const Track = ({ track, selected, onAdd, onRemove }: Props) => {
   const artist = track.artists[0].name;
   const album = track.album.name;
   const duration = millisToMinutes(track.duration_ms);
+  const isMobile = useBreakpointValue({
+    base: true,
+    md: false,
+  });
+
+  const toggleSelected = () => (selected ? onRemove(track) : onAdd(track));
 
   return (
-    <Card height="128px" margin={2} overflow="hidden">
+    <Card
+      bgColor={isMobile && selected ? "purple.700" : "gray.700"}
+      margin={2}
+      overflow="hidden"
+      onClick={() => {
+        if (!isMobile) return;
+        if (selected) onRemove(track);
+        else onAdd(track);
+      }}
+    >
       <HStack alignItems="start">
         <Image width="128px" src={imageUrl}></Image>
         <CardBody>
@@ -45,17 +62,19 @@ const Track = ({ track, selected, onAdd, onRemove }: Props) => {
             <Text>{duration}</Text>
           </HStack>
         </CardBody>
-        <Button
-          backgroundColor={selected ? "gray" : "limegreen"}
-          borderRadius={20}
-          colorScheme={selected ? "default" : "green"}
-          marginRight={5}
-          marginTop={10}
-          width={90}
-          onClick={() => (selected ? onRemove(track) : onAdd(track))}
-        >
-          {selected ? "Remove" : "Add"}
-        </Button>
+        <Show above="md">
+          <Button
+            backgroundColor={selected ? "gray" : "limegreen"}
+            borderRadius={20}
+            colorScheme={selected ? "default" : "green"}
+            marginRight={5}
+            marginTop={10}
+            width={90}
+            onClick={toggleSelected}
+          >
+            {selected ? "Remove" : "Add"}
+          </Button>
+        </Show>
       </HStack>
     </Card>
   );
