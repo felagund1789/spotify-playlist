@@ -8,7 +8,7 @@ interface Props {
 const NavBar = ({ name, imgUrl }: Props) => {
   return (
     <HStack justifyContent="space-between" padding={4}>
-      <Heading>Spotify Playlist Maker</Heading>
+      <Heading>Spotify Playlist Creator</Heading>
       <Avatar name={name} src={imgUrl} />
     </HStack>
   );
