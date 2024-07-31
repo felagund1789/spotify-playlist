@@ -13,9 +13,10 @@ import { BsSearch, BsX } from "react-icons/bs";
 
 interface Props {
   onSearch: (searchText: string) => void;
+  onClickSave: () => void;
 }
 
-const SearchInput = ({ onSearch }: Props) => {
+const SearchInput = ({ onSearch, onClickSave }: Props) => {
   const ref = useRef<HTMLInputElement>(null);
   const [searchText, setSearchText] = useState("");
   const padding = useBreakpointValue({
@@ -67,7 +68,12 @@ const SearchInput = ({ onSearch }: Props) => {
         <Show above="md">{searchButton}</Show>
       </HStack>
       <Show below="md">
-        <HStack justifyContent="center">{searchButton}</HStack>
+        <HStack justifyContent="center">
+          {searchButton}
+          <Button borderRadius={20} min-width={120} onClick={onClickSave}>
+            Save Playlist
+          </Button>
+        </HStack>
       </Show>
     </form>
   );
