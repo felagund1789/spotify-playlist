@@ -1,6 +1,6 @@
 # Spotify Playlist Creator
 
-![Spotify](https://img.shields.io/badge/Spotify-1DB954?logo=spotify&logoColor=white)
+![Spotify](https://img.shields.io/badge/Spotify-1DB954?style=flat-square&logo=spotify&logoColor=white)
 
 ## Overview
 
@@ -73,7 +73,7 @@ The app should now be running on [http://localhost:5173](http://localhost:5173).
 
 Contributions are welcome! Please follow these steps:
 
-1. Clone the repository.
+1. Fork the repository.
 2. Create a new branch: `git checkout -b feature-branch-name`
 3. Make your changes and commit them: `git commit -m 'Add some feature'`
 4. Push to the branch: `git push origin feature-branch-name`
@@ -90,4 +90,4 @@ If you have any questions or feedback, please feel free to reach out:
 
 Thank you for using Spotify Playlist Creator! Enjoy your music. 🎵
 
-![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white) ![Chakra UI](https://img.shields.io/badge/Chakra_UI-319795?logo=chakraui&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white) ![Chakra UI](https://img.shields.io/badge/Chakra_UI-319795?style=flat-square&logo=chakraui&logoColor=white)
